@@ -34,7 +34,7 @@ function displayTree(node){
 
 // Evaluation function
 function evaluate(node){
-	return node.value;
+	return (depth%2 ? -1: 1) * node.value;
 }
 
 function resetStatus(node, depth){
@@ -43,6 +43,15 @@ function resetStatus(node, depth){
 		return;
 	for(var child in node.children){
 		resetStatus(node.children[child], depth-1);
+	}
+}
+
+function resetValues(node, depth){
+	node.value = 0;
+	if((node.terminal)() == true || depth == 0)
+		node.value = Math.round(9 * Math.random(6));
+	for(var child in node.children){
+		resetValues(node.children[child], depth-1);
 	}
 }
 
@@ -60,14 +69,14 @@ function minimax(node, depth){
 }
 
 // AlphaBeta algorithm
-function alphabeta(node, alpha, beta, depth){
+function alphabeta(node, depth, alpha, beta){
 	node.status = 1;
 	if((node.terminal)() == true || depth == 0)
 		return evaluate(node);
-	a = -INFINITY;
 	for(var child in node.children){
-		a = Math.max(a, -alphabeta(node.children[child], alpha, beta, depth-1));
+		alpha = Math.max(alpha, -alphabeta(node.children[child], depth-1, -beta, -alpha));
+		if(beta <= alpha) break;
 	}
-	node.value = a;
-	return a;
+	node.value = alpha;
+	return alpha;
 }

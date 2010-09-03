@@ -5,27 +5,31 @@
 <script src="jsTree.js"></script>
 <script>
 var node;
+var depth = 3;
+var leaves = 2;
+
 $(document).ready(function(){
 
-	node = jsTree(3, 3);
+	node = jsTree(depth, leaves);
 	displayTree(node);
 	
 	$('#minimax').click(function(){
-		resetStatus(node, 3);
-		minimax(node, 3);
+		resetStatus(node, depth);
+		minimax(node, depth);
 		displayTree(node);
 	});
 	
 	$('#alphabeta').click(function(){
-		resetStatus(node, 3);
+		resetStatus(node, depth);
 		var alpha = -INFINITY;
 		var beta = INFINITY;
-		alphabeta(node, alpha, beta, 3);
+		alphabeta(node, depth, alpha, beta);
 		displayTree(node);
 	});
 	
 	$('#reset').click(function(){
-		resetStatus(node, 3);
+		resetValues(node, depth);
+		resetStatus(node, depth);
 		displayTree(node);
 	});
 
