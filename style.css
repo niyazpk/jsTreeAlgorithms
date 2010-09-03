@@ -1,0 +1,6 @@
+* {padding:0;margin:0;font-family:sans-serif;font-weight:bold;}	
+div {padding:35px 5px;text-align:center;display:inline-block;}
+p {font-size:12px;padding:6px 2px;margin:0 auto;width:20px;-moz-border-radius:15px;}
+#controls {display:block;}
+.status-0 {background-color: #ccc;}
+.status-1 {background-color: #77c886;}

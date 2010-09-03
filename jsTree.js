@@ -21,22 +21,34 @@ function jsTree(depth, leaves) {
 // Function to display the tree in the HTML page.
 function displayTree(node){
 	var	str = "";
-	
 	function createTreeHTML(node){
-		str = str + "<div><p>" + node.value + "</p>";
+		str = str + "<div><p class='status-" + node.status+ "'>" + node.value + "</p>";
 		for(var child in node.children){
 			createTreeHTML(node.children[child]);	
 		}
 		str = str + "</div>";
 	}
-	
 	createTreeHTML(node);
 	$('#tree-container').html(str);
-
 }
 
-// Minimax algorithm implementaion
+// Evaluation function
+function evaluate(node){
+	return node.value;
+}
+
+function resetStatus(node, depth){
+	node.status = 0;
+	if((node.terminal)() == true || depth == 0)
+		return;
+	for(var child in node.children){
+		resetStatus(node.children[child], depth-1);
+	}
+}
+
+// Minimax algorithm
 function minimax(node, depth){
+	node.status = 1;
 	if((node.terminal)() == true || depth == 0)
 		return evaluate(node);
 	a = -INFINITY;
@@ -47,7 +59,15 @@ function minimax(node, depth){
 	return a;
 }
 
-// Evaluation function
-function evaluate(node){
-	return node.value;
+// AlphaBeta algorithm
+function alphabeta(node, alpha, beta, depth){
+	node.status = 1;
+	if((node.terminal)() == true || depth == 0)
+		return evaluate(node);
+	a = -INFINITY;
+	for(var child in node.children){
+		a = Math.max(a, -alphabeta(node.children[child], alpha, beta, depth-1));
+	}
+	node.value = a;
+	return a;
 }

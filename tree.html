@@ -1,39 +1,46 @@
 <html>
 <head>
+<link type="text/css" rel="stylesheet" media="all" href="style.css" />
 <script src="jquery-1.4.2.min.js"></script>
 <script src="jsTree.js"></script>
 <script>
 var node;
 $(document).ready(function(){
+
 	node = jsTree(3, 3);
-	//var str="";
-	//displayTree(node);
-	
-	//displayTree(node);
+	displayTree(node);
 	
 	$('#minimax').click(function(){
+		resetStatus(node, 3);
 		minimax(node, 3);
 		displayTree(node);
 	});
 	
 	$('#alphabeta').click(function(){
-		minimax(node, 3);
+		resetStatus(node, 3);
+		var alpha = -INFINITY;
+		var beta = INFINITY;
+		alphabeta(node, alpha, beta, 3);
+		displayTree(node);
+	});
+	
+	$('#reset').click(function(){
+		resetStatus(node, 3);
 		displayTree(node);
 	});
 
 });
-
 </script>
 <style>
-div {padding:35px 5px;text-align:center;display:inline-block;}
-p {font-size:12px;padding:2px 0;border: 2px solid orange;margin:0 auto;width:20px;-moz-border-radius:15px 15px 15px 15px;}
+
 </style>
 </head>
 <body>
-	<div id="tree-container"></div>
 	<div id="controls">
 		<a href="#" id="minimax">minimax</a>
 		<a href="#" id="alphabeta">alphabeta</a>
+		<a href="#" id="reset">reset</a>
 	</div>
+	<div id="tree-container"></div>
 </body>
 </html>
