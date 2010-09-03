@@ -6,10 +6,21 @@
 var node;
 $(document).ready(function(){
 	node = jsTree(3, 3);
-	var str="";
-	displayTree(node);
-	minimax(node, 3);
-	displayTree(node);
+	//var str="";
+	//displayTree(node);
+	
+	//displayTree(node);
+	
+	$('#minimax').click(function(){
+		minimax(node, 3);
+		displayTree(node);
+	});
+	
+	$('#alphabeta').click(function(){
+		minimax(node, 3);
+		displayTree(node);
+	});
+
 });
 
 </script>
@@ -20,5 +31,9 @@ p {font-size:12px;padding:2px 0;border: 2px solid orange;margin:0 auto;width:20p
 </head>
 <body>
 	<div id="tree-container"></div>
+	<div id="controls">
+		<a href="#" id="minimax">minimax</a>
+		<a href="#" id="alphabeta">alphabeta</a>
+	</div>
 </body>
 </html>
