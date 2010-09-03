@@ -37,6 +37,7 @@ function evaluate(node){
 	return (depth%2 ? -1: 1) * node.value;
 }
 
+// Clear the colours in the HTML display
 function resetStatus(node, depth){
 	node.status = 0;
 	if((node.terminal)() == true || depth == 0)
@@ -46,6 +47,7 @@ function resetStatus(node, depth){
 	}
 }
 
+// Give new random values to the leaf nodes and set all other nodes values to 0
 function resetValues(node, depth){
 	node.value = 0;
 	if((node.terminal)() == true || depth == 0)
@@ -75,6 +77,7 @@ function alphabeta(node, depth, alpha, beta){
 		return evaluate(node);
 	for(var child in node.children){
 		alpha = Math.max(alpha, -alphabeta(node.children[child], depth-1, -beta, -alpha));
+		node.value = alpha;
 		if(beta <= alpha) break;
 	}
 	node.value = alpha;
