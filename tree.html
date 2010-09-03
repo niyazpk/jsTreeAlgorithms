@@ -2,36 +2,56 @@
 <head>
 <script src="jquery-1.4.2.min.js"></script>
 <script>
-function jsTree(depth, leaves) {
 
-	var ref = new Object();
-	ref.value = depth;
-	ref.nodes = new Array;
-	
+const INFINITY = 99999; 	//Put a large number in here.
+
+function jsTree(depth, leaves) {
+	var node = new Object();
+	node.value=0;
+	node.terminal = function(){return false;};
+	node.children = new Array;
 	if(depth > 0){
 		for(var i = leaves;i > 0;i--){
-			ref.nodes.push(jsTree(depth-1, leaves));
+			node.children.push(jsTree(depth-1, leaves));
 		}
 	}
-	if(depth==0) {ref.value=Math.round(9 * Math.random(6))}
-	return ref;
+	if(depth==0) {node.value=Math.round(9 * Math.random(6))}
+	return node;
 }
 
-var tree = jsTree(3, 3);
+var node = jsTree(3, 3);
 var str="";
-displayTree(tree);
+displayTree(node);
+minimax(node, 3);
+displayTree(node);
 
-
-function displayTree(tree){
-	str = str + "<div><p>" + tree.value + "</p>";
-	for(var i in tree.nodes){
-		displayTree(tree.nodes[i]);	
+function displayTree(node){
+	str = str + "<div><p>" + node.value + "</p>";
+	for(var child in node.children){
+		displayTree(node.children[child]);	
 	}
 	str = str + "</div>";
 }
 
+function minimax(node, depth){
+	//if(node.terminal == false || depth == 0)
+	if(depth == 0)
+		return evaluate(node);
+	a = -INFINITY;
+	for(var child in node.children){
+		a = Math.max(a, -minimax(node.children[child], depth-1));	
+	}
+	node.value = a;
+	console.log(a);
+	return a;
+}
+
+function evaluate(node){
+	return node.value;
+}
+
 $(document).ready(function(){
-	console.log(str);
+	//console.log(str);
 	$('body').append(str);
 });
 
