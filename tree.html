@@ -1,0 +1,48 @@
+<html>
+<head>
+<script src="jquery-1.4.2.min.js"></script>
+<script>
+function jsTree(depth, leaves) {
+
+	var ref = new Object();
+	ref.value = depth;
+	ref.nodes = new Array;
+	
+	if(depth > 0){
+		for(var i = leaves;i > 0;i--){
+			ref.nodes.push(jsTree(depth-1, leaves));
+		}
+	}
+	if(depth==0) {ref.value=Math.round(9 * Math.random(6))}
+	return ref;
+}
+
+var tree = jsTree(3, 3);
+var str="";
+displayTree(tree);
+
+
+function displayTree(tree){
+	str = str + "<div><p>" + tree.value + "</p>";
+	for(var i in tree.nodes){
+		displayTree(tree.nodes[i]);	
+	}
+	str = str + "</div>";
+}
+
+$(document).ready(function(){
+	console.log(str);
+	$('body').append(str);
+});
+
+</script>
+<style>
+div {padding:35px 5px;text-align:center;display:inline-block;}
+p {font-size:12px;padding:2px 0;border: 2px solid orange;margin:0 auto;width:20px;-moz-border-radius:15px 15px 15px 15px;}
+</style>
+</head>
+
+<body>
+
+</body>
+</html>
