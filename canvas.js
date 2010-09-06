@@ -8,14 +8,14 @@ function sketchProc(processing) {
 
 	var curr_x = centerX;
 	var curr_y = 10;
-	var total_width = processing.width;
+	var total_width = 150;//processing.width;
 	//curr_x = total_width / 2;
 	
 	function displayTree(node, depth){	    
 	    processing.fill(40*depth, 100, 100);
 	    processing.ellipse(curr_x, curr_y, 20, 20);
 	    curr_y = curr_y + 25;
-	    num_nodes_in_level = Math.pow(LEAVES, (DEPTH-depth));
+	    var num_nodes_in_level = Math.pow(LEAVES, (DEPTH-depth));
 	    curr_x = curr_x - total_width * 2 /(num_nodes_in_level + 1);   
 	    for(var child in node.children){
 		//console.log(child);
