@@ -8,28 +8,30 @@ function sketchProc(processing) {
 
 	var curr_x = centerX;
 	var curr_y = 10;
+	var total_width = processing.width;
+	//curr_x = total_width / 2;
 	
 	function displayTree(node, depth){	    
-	    //if(depth == 3){processing.fill(200,100,100);}else{noFill();}
 	    processing.fill(40*depth, 100, 100);
 	    processing.ellipse(curr_x, curr_y, 20, 20);
 	    curr_y = curr_y + 25;
 	    num_nodes_in_level = Math.pow(LEAVES, (DEPTH-depth));
-	    //console.log(num_nodes_in_level);
+	    curr_x = curr_x - total_width * 2 /(num_nodes_in_level + 1);   
 	    for(var child in node.children){
-		curr_x = curr_x + child * (processing.width/(num_nodes_in_level+1));
+		//console.log(child);
+		curr_x = curr_x + (child + 1) * (total_width/(num_nodes_in_level + 1));
 		displayTree(node.children[child], depth-1);
-		curr_x = curr_x - child * (processing.width/(num_nodes_in_level+1));
+		curr_x = curr_x - (child + 1) * (total_width/(num_nodes_in_level + 1));
 	    }
 	    curr_y = curr_y - 25;
-	    //console.log(child);
+	    curr_x = curr_x + total_width * 2 /(num_nodes_in_level+1);
 	    //curr_x = curr_x - child * (processing.width/(num_nodes_in_level+1)); 
 	}
 
 	// erase background
 	processing.background(224);
-	
 	displayTree(node, DEPTH);
+	//console.log(curr_x, curr_y);
     
     };
     
