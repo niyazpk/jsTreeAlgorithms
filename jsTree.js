@@ -1,6 +1,4 @@
 const INFINITY = 99999; 	// Put a large number in here.
-var isItTimeYet;			// Used to introduce delay in various methods
-
 
 // Function to get a tree of desired depth and leaves
 function jsTree(depth, leaves) {
@@ -34,7 +32,7 @@ function displayTree(node){
 
 // Evaluation function
 function evaluate(node){
-	return (depth%2 ? -1: 1) * node.value;
+	return (DEPTH%2 ? -1: 1) * node.value;
 }
 
 // Clear the colours in the HTML display

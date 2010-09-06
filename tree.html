@@ -7,32 +7,32 @@
 <script src="jsTree.js"></script>
 <script>
 var node;
-var depth = 4;
-var leaves = 2;
+var DEPTH = 4;
+var LEAVES = 2;
 
 $(document).ready(function(){
 
-	node = jsTree(depth, leaves);
+	node = jsTree(DEPTH, LEAVES);
 	displayTree(node);
 	
 	$('#minimax').click(function(){
-		resetStatus(node, depth);
-		minimax(node, depth);
+		resetStatus(node, DEPTH);
+		minimax(node, DEPTH);
 		displayTree(node);
 	});
 	
 	$('#alphabeta').click(function(){
-		resetStatus(node, depth);
+		resetStatus(node, DEPTH);
 		var alpha = -INFINITY;
 		var beta = INFINITY;
-		alphabeta(node, depth, alpha, beta);
+		alphabeta(node, DEPTH, alpha, beta);
 		displayTree(node);
 		$('.status-0').css('background-color', '#c55');
 	});
 	
 	$('#reset').click(function(){
-		resetValues(node, depth);
-		resetStatus(node, depth);
+		resetValues(node, DEPTH);
+		resetStatus(node, DEPTH);
 		displayTree(node);
 	});
 
