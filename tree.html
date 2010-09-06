@@ -2,6 +2,8 @@
 <head>
 <link type="text/css" rel="stylesheet" media="all" href="style.css" />
 <script src="jquery-1.4.2.min.js"></script>
+<script src="processing-0.9.7.min.js"></script>
+<script src="processing.init.js"></script>
 <script src="jsTree.js"></script>
 <script>
 var node;
@@ -25,6 +27,7 @@ $(document).ready(function(){
 		var beta = INFINITY;
 		alphabeta(node, depth, alpha, beta);
 		displayTree(node);
+		$('.status-0').css('background-color', '#c55');
 	});
 	
 	$('#reset').click(function(){
@@ -35,9 +38,7 @@ $(document).ready(function(){
 
 });
 </script>
-<style>
 
-</style>
 </head>
 <body>
 	<div id="controls">
@@ -46,5 +47,14 @@ $(document).ready(function(){
 		<a href="#" id="reset">reset</a>
 	</div>
 	<div id="tree-container"></div>
+	
+	
+	
+	
+	<canvas id="canvas" datasrc="canvas.js" width="400" height="200"></canvas>
+
+
+	
+	
 </body>
 </html>

@@ -78,8 +78,8 @@ function alphabeta(node, depth, alpha, beta){
 	for(var child in node.children){
 		alpha = Math.max(alpha, -alphabeta(node.children[child], depth-1, -beta, -alpha));
 		node.value = alpha;
-		if(beta <= alpha) break;
+		if(beta <= alpha){break;}
 	}
-	node.value = alpha;
 	return alpha;
 }
+
