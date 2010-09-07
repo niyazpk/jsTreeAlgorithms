@@ -1,6 +1,7 @@
 // Simple way to attach js code to the canvas is by using a function
 function sketchProc(processing) {
   // Override draw function, by default it will be called 60 times per second
+    frameRate(5);
     processing.draw = function() {
     // determine center and max clock arm length
 	var centerX = processing.width / 2, centerY = processing.height / 2;
@@ -8,30 +9,28 @@ function sketchProc(processing) {
 
 	var curr_x = centerX;
 	var curr_y = 10;
-	var total_width = 150;//processing.width;
-	//curr_x = total_width / 2;
+	var total_width = processing.width;
 	
 	function displayTree(node, depth){	    
-	    processing.fill(40*depth, 100, 100);
+	    processing.fill(60*depth, 100, 100);
 	    processing.ellipse(curr_x, curr_y, 20, 20);
 	    curr_y = curr_y + 25;
 	    var num_nodes_in_level = Math.pow(LEAVES, (DEPTH-depth));
-	    curr_x = curr_x - total_width * 2 /(num_nodes_in_level + 1);   
+	    //if(depth==3){console.log(curr_x);}
 	    for(var child in node.children){
-		//console.log(child);
-		curr_x = curr_x + (child + 1) * (total_width/(num_nodes_in_level + 1));
+		
+		var multiplier = (child > node.children.length/2 ? 1 : -1);
+		curr_x = curr_x + multiplier * (child + 1) * (total_width/(num_nodes_in_level + 5));
 		displayTree(node.children[child], depth-1);
-		curr_x = curr_x - (child + 1) * (total_width/(num_nodes_in_level + 1));
+		curr_x = curr_x - multiplier * (child + 1) * (total_width/(num_nodes_in_level + 5));
 	    }
 	    curr_y = curr_y - 25;
-	    curr_x = curr_x + total_width * 2 /(num_nodes_in_level+1);
-	    //curr_x = curr_x - child * (processing.width/(num_nodes_in_level+1)); 
+ 
 	}
 
 	// erase background
 	processing.background(224);
 	displayTree(node, DEPTH);
-	//console.log(curr_x, curr_y);
     
     };
     
