@@ -15,14 +15,15 @@ function sketchProc(processing) {
 	    processing.fill(60*depth, 100, 100);
 	    processing.ellipse(curr_x, curr_y, 20, 20);
 	    curr_y = curr_y + 25;
-	    var num_nodes_in_level = Math.pow(LEAVES, (DEPTH-depth));
-	    //if(depth==3){console.log(curr_x);}
+	    var num_nodes_in_level = Math.pow(LEAVES, (DEPTH-depth+1));
+	    //if(depth==4){console.log(num_nodes_in_level);}
 	    for(var child in node.children){
-		
-		var multiplier = (child > node.children.length/2 ? 1 : -1);
-		curr_x = curr_x + multiplier * (child + 1) * (total_width/(num_nodes_in_level + 5));
+		//console.log(node.children.length);
+		var multiplier = (child >= node.children.length/2 ? 1 : -1);
+		//console.log(multiplier);
+		curr_x = curr_x + multiplier * (total_width/(num_nodes_in_level)) / 2;
 		displayTree(node.children[child], depth-1);
-		curr_x = curr_x - multiplier * (child + 1) * (total_width/(num_nodes_in_level + 5));
+		curr_x = curr_x - multiplier * (total_width/(num_nodes_in_level)) / 2;
 	    }
 	    curr_y = curr_y - 25;
  
