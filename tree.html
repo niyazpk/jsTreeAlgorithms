@@ -13,27 +13,22 @@ var LEAVES = 2;
 $(document).ready(function(){
 
 	node = jsTree(DEPTH, LEAVES);
-	displayTree(node);
 	
 	$('#minimax').click(function(){
-		resetStatus(node, DEPTH);
+		resetStatus(node, DEPTH, 0);
 		minimax(node, DEPTH);
-		displayTree(node);
 	});
 	
 	$('#alphabeta').click(function(){
-		resetStatus(node, DEPTH);
+		resetStatus(node, DEPTH, 2);
 		var alpha = -INFINITY;
 		var beta = INFINITY;
 		alphabeta(node, DEPTH, alpha, beta);
-		displayTree(node);
-		$('.status-0').css('background-color', '#c55');
 	});
 	
 	$('#reset').click(function(){
 		resetValues(node, DEPTH);
-		resetStatus(node, DEPTH);
-		displayTree(node);
+		resetStatus(node, DEPTH, 0);
 	});
 
 });
@@ -46,15 +41,8 @@ $(document).ready(function(){
 		<a href="#" id="alphabeta">alphabeta</a>
 		<a href="#" id="reset">reset</a>
 	</div>
-	<div id="tree-container"></div>
 	
-	
-	
-	
-	<canvas id="canvas" datasrc="canvas.js" width="600" height="300"></canvas>
-
-
-	
+	<canvas id="canvas" datasrc="canvas.js" width="800" height="300"></canvas>
 	
 </body>
 </html>

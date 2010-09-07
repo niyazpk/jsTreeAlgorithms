@@ -8,29 +8,37 @@ function sketchProc(processing) {
 	var maxArmLength = Math.min(centerX, centerY);
 
 	var curr_x = centerX;
-	var curr_y = 10;
+	var curr_y = 20;
 	var total_width = processing.width;
 	
-	function displayTree(node, depth){	    
-	    processing.fill(60*depth, 100, 100);
-	    processing.ellipse(curr_x, curr_y, 20, 20);
-	    curr_y = curr_y + 25;
+	function displayTree(node, depth){
+	    if(node.status==0){
+		processing.fill(#AAAAAA);
+	    }else if(node.status==1){
+		processing.fill(#55C876);
+	    }else{
+		processing.fill(#cc5555);
+	    }
+	    noStroke();
+	    processing.ellipse(curr_x, curr_y, 30, 30);
+	    PFont fontA = loadFont("Courier New Bold");
+	    textFont(fontA, 16);
+	    textAlign(CENTER);
+	    fill(255);
+	    text(node.value, curr_x, curr_y+5);
+	    curr_y = curr_y + 65;
 	    var num_nodes_in_level = Math.pow(LEAVES, (DEPTH-depth+1));
-	    //if(depth==4){console.log(num_nodes_in_level);}
 	    for(var child in node.children){
-		//console.log(node.children.length);
 		var multiplier = (child >= node.children.length/2 ? 1 : -1);
-		//console.log(multiplier);
 		curr_x = curr_x + multiplier * (total_width/(num_nodes_in_level)) / 2;
 		displayTree(node.children[child], depth-1);
 		curr_x = curr_x - multiplier * (total_width/(num_nodes_in_level)) / 2;
 	    }
-	    curr_y = curr_y - 25;
+	    curr_y = curr_y - 65;
  
 	}
 
-	// erase background
-	processing.background(224);
+	processing.background(255);
 	displayTree(node, DEPTH);
     
     };

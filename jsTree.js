@@ -36,12 +36,12 @@ function evaluate(node){
 }
 
 // Clear the colours in the HTML display
-function resetStatus(node, depth){
-	node.status = 0;
+function resetStatus(node, depth, status){
+	node.status = status;
 	if((node.terminal)() == true || depth == 0)
 		return;
 	for(var child in node.children){
-		resetStatus(node.children[child], depth-1);
+		resetStatus(node.children[child], depth-1, status);
 	}
 }
 
