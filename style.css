@@ -7,3 +7,4 @@ p {font-size:12px;padding:6px 2px;margin:0 auto;width:20px;-moz-border-radius:15
 .status-1 {background-color: #55C876;}
 .status-2 {background-color: #c55;}
 canvas{clear: both;display: block;}
+a {color:#fff;background-color:#aaa;text-decoration:none;padding:5px;font-size:12px;}

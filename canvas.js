@@ -41,10 +41,10 @@ function sketchProc(processing) {
 	    processing.ellipse(prev_x, prev_y, 30, 30);
 
 	    PFont fontA = loadFont("Courier New Bold");
-	    textFont(fontA, 16);
+	    textFont(fontA, 14);
 	    textAlign(CENTER);
 	    fill(255);
-	    text(node.value, prev_x, prev_y+5);
+	    text(node.value, prev_x, prev_y+4);
  
 	}
 
