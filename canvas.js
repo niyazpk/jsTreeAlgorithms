@@ -12,6 +12,24 @@ function sketchProc(processing) {
 	var total_width = processing.width;
 	
 	function displayTree(node, depth){
+
+	    var prev_x = curr_x;
+	    var prev_y = curr_y;	    
+
+	    curr_y = curr_y + 65;
+	    var num_nodes_in_level = Math.pow(LEAVES, (DEPTH-depth+1));
+
+	    for(var child in node.children){
+		var multiplier = (child >= node.children.length/2 ? 1 : -1);
+		curr_x = curr_x + multiplier * (total_width/(num_nodes_in_level)) / 2;
+		stroke(#AAAAAA);
+		line(prev_x, prev_y, curr_x, curr_y);
+		displayTree(node.children[child], depth-1);
+		curr_x = curr_x - multiplier * (total_width/(num_nodes_in_level)) / 2;
+	    }
+
+	    curr_y = curr_y - 65;
+
 	    if(node.status==0){
 		processing.fill(#AAAAAA);
 	    }else if(node.status==1){
@@ -20,21 +38,13 @@ function sketchProc(processing) {
 		processing.fill(#cc5555);
 	    }
 	    noStroke();
-	    processing.ellipse(curr_x, curr_y, 30, 30);
+	    processing.ellipse(prev_x, prev_y, 30, 30);
+
 	    PFont fontA = loadFont("Courier New Bold");
 	    textFont(fontA, 16);
 	    textAlign(CENTER);
 	    fill(255);
-	    text(node.value, curr_x, curr_y+5);
-	    curr_y = curr_y + 65;
-	    var num_nodes_in_level = Math.pow(LEAVES, (DEPTH-depth+1));
-	    for(var child in node.children){
-		var multiplier = (child >= node.children.length/2 ? 1 : -1);
-		curr_x = curr_x + multiplier * (total_width/(num_nodes_in_level)) / 2;
-		displayTree(node.children[child], depth-1);
-		curr_x = curr_x - multiplier * (total_width/(num_nodes_in_level)) / 2;
-	    }
-	    curr_y = curr_y - 65;
+	    text(node.value, prev_x, prev_y+5);
  
 	}
 
